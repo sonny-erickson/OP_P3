@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+        <title>Bikes</title>
+        <meta name="description" content="Lyon.bike vous aide à louer un vélo dans la ville de Lyon"> <!-- Meta Description -->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+                integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+                crossorigin="" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
+                integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+                crossorigin="anonymous">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+                integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+                crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="asset/style.css" />
+</head>
+
+<body>
+        <section class="bg-dark text-center">
+                <img src="asset/lyonbike.png" alt="logo">
+                <h1 class="text-light mb-0 pb-5">"Avec Lyon.bike la location de vélo est un jeu d'enfant"</h1>
+        </section>
+        <header>
+                <h2 class="text-center">Instructions</h2>
+        </header>
+        <div id="carousel">
+                <figure class="diapo1" id="1">
+                        <img src="asset/acceuil.png" alt="image1">
+                        <figcaption></figcaption>
+                </figure>
+                <figure class="diapo2" id="2">
+                        <img src="asset/step1.png" alt="tuto1">
+                        <figcaption></figcaption>
+                </figure>
+                <figure class="diapo3" id="3">
+                        <img src="asset/step2.png" alt="tuto2">
+                        <figcaption></figcaption>
+                </figure>
+                <figure class="diapo4" id="4">
+                        <img src="asset/step3.png" alt="tuto3">
+                        <figcaption></figcaption>
+                </figure>
+                <figure class="diapo5" id="5">
+                        <img src="asset/step4.png" alt="tuto4">
+                        <figcaption></figcaption>
+                </figure>
+                <a class="fas fa-arrow-circle-left prev" id="prev"></a>
+                <a class="fas fa-play-circle play" id="play"></a>
+                <a class="fas fa-pause-circle pause" id="pause"></a>
+                <a class="fas fa-arrow-circle-right next" id="next"></a>
+        </div>
+        <div>
+                <header>
+                        <h2 class="text-center">Choisissez une station</h2>
+                </header>
+                <div class="container-fluid">
+                        <div class="mt-4 shadow-lg p-3 m-2" id="maCarte"></div>
+                        <aside>
+                                <div class="border m-4 shadow-lg p-3 mb-5 rounded bg-light" id="stations">
+                                        <h2 class="text-center border-bottom border-dark mb-4">Détails de la station
+                                        </h2>
+                                        <table class="table table-striped ">
+                                                <tbody>
+                                                        <tr>
+                                                                <th>Status:</th>
+                                                                <td id="status"></td>
+                                                        </tr>
+                                                        <tr>
+                                                                <th scope="row">Adresse:</th>
+                                                                <td id="adresse"></td>
+                                                        </tr>
+                                                        <tr>
+                                                                <th scope="row">Nom:</th>
+                                                                <td id="nom"></td>
+                                                        </tr>
+                                                        <tr>
+                                                                <th scope="row">Nb de vélos:</th>
+                                                                <td id="nbVelos"></td>
+                                                        </tr>
+                                                        <tr>
+                                                                <th scope="row">Vélos dispo:</th>
+                                                                <td id="dispo"></td>
+                                                        </tr>
+                                                </tbody>
+                                        </table>
+                                        <form class="d-none" id='form'>
+                                                <div class="form-group row ml-4">
+                                                        <label class="col-sm-3 col-form-label">Nom*</label>
+                                                        <div>
+                                                                <input type="text" id="inputName" class="form-control">
+                                                        </div>
+                                                </div>
+                                                <div class="form-group row  row ml-4">
+                                                        <label class="col-sm-3 col-form-label">Prénom*</label>
+                                                        <div>
+                                                                <input type="text" id="inputSurname"
+                                                                        class="form-control">
+                                                        </div>
+                                                </div>
+                                                <p>* doit contenir entre 3 et 16 caractères sans caractères spéciaux</p>
+
+                                                <button id='reservez'
+                                                        class="btn btn btn-block mt-4 text-light">Réserver</button>
+                                        </form>
+                                </div>
+                                <div class="border m-4 shadow-lg p-3 mb-5 rounded bg-light d-none" id="book">
+                                        <h2 class="text-center border-bottom border-dark mb-5">Votre réservation</h2>
+                                        <table class="table table-striped">
+                                                <tbody>
+                                                        <tr>
+                                                                <th scope="row">Adresse:</th>
+                                                                <td id="adresseCanvas"></td>
+                                                        </tr>
+                                                        <tr>
+                                                                <th>Nom:</th>
+                                                                <td id="nomCanvas"></td>
+                                                        </tr>
+                                                        <tr>
+                                                                <th scope="row">Durée:</th>
+                                                                <td> 20 min</td>
+                                                        </tr>
+                                                </tbody>
+                                        </table>
+                                        <div class="d-flex flex-column justify-content-center align-items-center">
+                                                <canvas id="canvas" class=" bg-dark mt-5 mb-5" width="260"></canvas>
+                                                <div class="text-center">
+                                                        <button class="btn text-light" id="retour">Retour</button>
+                                                        <button class="btn text-light" id="delete">Effacer</button>
+                                                        <button class="btn text-light" id="validation">Valider</button>
+                                                </div>
+                                        </div>
+                                </div>
+                        </aside>
+                </div>
+                <div id="reservationInfo">
+                        <header>
+                                <h2 class="text-center">Informations sur la réservation</h2>
+                        </header>
+                        <div class="border m-4 shadow-lg p-3 mb-5 rounded bg-light">
+                                <p>Station: <span class="affichageStation text-success"></span></p>
+                                <p>Lieu: <span class="affichageAdresse text-success"></span></p>
+                                <p id="terminer">Etat réservation : <span class="affichageTimer"></span></p>
+                                <button class='btn btn-primary' id="annuler">Annuler</button>
+                                <div id="result"></div>
+                        </div>
+                </div>
+        </div>
+        <script src="js/Diapo.js"></script>
+        <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+                integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+                crossorigin=""></script>
+        <script src="js/Ajax.js"></script>
+        <script src="js/Timer.js"></script>
+        <script src="js/Canvas.js"></script>
+        <script src="js/Map.js"></script>
+        <script src="js/main.js"></script>
+</body>
+
+</html>
